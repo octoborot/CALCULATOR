@@ -192,6 +192,7 @@ export const ThemeProvider = ({ children }) => {
     const palette = await extractColorsFromImage(dataUrl);
     localStorage.setItem('calculator-custom-image', dataUrl);
     localStorage.setItem('calculator-custom-palette', JSON.stringify(palette));
+    localStorage.setItem('calculator-theme', THEMES.CUSTOM);
     setThemeState(THEMES.CUSTOM);
   }, []);
 

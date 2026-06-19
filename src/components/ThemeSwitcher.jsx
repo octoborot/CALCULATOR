@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useTheme, THEMES } from '../context/ThemeContext';
 
 const themesList = [
@@ -16,13 +16,11 @@ const themesList = [
 const ThemeSwitcher = () => {
   const { theme: activeTheme, setTheme, applyCustomThemeImage } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
-  const [hasCustomImage, setHasCustomImage] = useState(false);
+  const [hasCustomImage, setHasCustomImage] = useState(() => {
+    return !!localStorage.getItem('calculator-custom-image');
+  });
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const fileInputRef = useRef(null);
-
-  useEffect(() => {
-    const customImg = localStorage.getItem('calculator-custom-image');
-    setHasCustomImage(!!customImg);
-  }, [activeTheme]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -36,25 +34,39 @@ const ThemeSwitcher = () => {
     }
 
     const reader = new FileReader();
-    reader.onload = (event) => {
-      applyCustomThemeImage(event.target.result);
-      setHasCustomImage(true);
+    reader.onload = async (event) => {
+      setIsAnalyzing(true);
       setIsOpen(false);
+      try {
+        // Wait at least 1.2s to make it feel premium, and perform extraction
+        await Promise.all([
+          applyCustomThemeImage(event.target.result),
+          new Promise((resolve) => setTimeout(resolve, 1200))
+        ]);
+        setHasCustomImage(true);
+        // Reload page to apply the latest theme
+        window.location.reload();
+      } catch (err) {
+        console.error('Error analyzing image:', err);
+        setIsAnalyzing(false);
+      }
     };
     reader.readAsDataURL(file);
   };
 
-  const triggerUpload = (e) => {
-    e.stopPropagation(); // Avoid triggering parent button handlers
-    fileInputRef.current.click();
-  };
-
-  const selectCustomTheme = () => {
-    if (hasCustomImage) {
-      setTheme(THEMES.CUSTOM);
-      setIsOpen(false);
-    } else {
+  const handleCustomClick = (e) => {
+    e.stopPropagation();
+    if (activeTheme === THEMES.CUSTOM) {
+      // If already custom theme, click should trigger file input to upload new image
       fileInputRef.current.click();
+    } else {
+      if (hasCustomImage) {
+        // If has custom image but not currently active, activate it
+        setTheme(THEMES.CUSTOM);
+      } else {
+        // Otherwise prompt upload
+        fileInputRef.current.click();
+      }
     }
   };
 
@@ -69,87 +81,88 @@ const ThemeSwitcher = () => {
   };
 
   return (
-    <div className="theme-switcher-container">
-      <button 
-        className="theme-switcher-toggle"
-        onClick={() => setIsOpen(!isOpen)}
-        aria-label="Switch Theme"
+    <>
+      <div className="theme-switcher-container">
+        <button 
+          className="theme-switcher-toggle"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Switch Theme"
+        >
+          <span className="active-theme-icon">
+            {getActiveThemeIcon()}
+          </span>
+          <span className="active-theme-name">
+            Theme: {getActiveThemeName()}
+          </span>
+          <span className={`toggle-arrow ${isOpen ? 'open' : ''}`}>▼</span>
+        </button>
+
+        {/* Hidden input for custom image uploads */}
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          accept=".jpg,.jpeg,.png,.webp"
+          style={{ display: 'none' }}
+        />
+
+        {isOpen && (
+          <div className="theme-dropdown-overlay" onClick={() => setIsOpen(false)}>
+            <div className="theme-dropdown-panel" onClick={(e) => e.stopPropagation()}>
+              <div className="theme-dropdown-header">
+                <h3>Select Giao Diện</h3>
+                <button className="close-dropdown-btn" onClick={() => setIsOpen(false)}>×</button>
+              </div>
+              
+              <div className="theme-grid">
+                {themesList.map((t) => (
+                  <button
+                    key={t.id}
+                    className={`theme-option-card ${t.id} ${activeTheme === t.id ? 'active' : ''}`}
+                    onClick={() => {
+                      setTheme(t.id);
+                      setIsOpen(false);
+                    }}
+                  >
+                    <div className="theme-preview-indicator">
+                      <span className="theme-preview-dot"></span>
+                    </div>
+                    <div className="theme-option-info">
+                      <div className="theme-option-name">
+                        {t.icon} {t.name}
+                      </div>
+                      <div className="theme-option-desc">{t.desc}</div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Outside Custom Theme Button */}
+      <button
+        className={`custom-theme-toggle ${activeTheme === THEMES.CUSTOM ? 'active' : ''}`}
+        onClick={handleCustomClick}
+        title={hasCustomImage ? "Nhấp để đổi ảnh hoặc kích hoạt theme Custom" : "Tải ảnh từ thiết bị lên"}
       >
-        <span className="active-theme-icon">
-          {getActiveThemeIcon()}
+        <span className="custom-theme-icon">🖼️</span>
+        <span className="custom-theme-text">
+          {activeTheme === THEMES.CUSTOM ? "Custom" : (hasCustomImage ? "Custom" : "Tải ảnh")}
         </span>
-        <span className="active-theme-name">
-          Theme: {getActiveThemeName()}
-        </span>
-        <span className={`toggle-arrow ${isOpen ? 'open' : ''}`}>▼</span>
       </button>
 
-      {/* Hidden input for custom image uploads */}
-      <input
-        type="file"
-        ref={fileInputRef}
-        onChange={handleFileChange}
-        accept=".jpg,.jpeg,.png,.webp"
-        style={{ display: 'none' }}
-      />
-
-      {isOpen && (
-        <div className="theme-dropdown-overlay" onClick={() => setIsOpen(false)}>
-          <div className="theme-dropdown-panel" onClick={(e) => e.stopPropagation()}>
-            <div className="theme-dropdown-header">
-              <h3>Select Giao Diện</h3>
-              <button className="close-dropdown-btn" onClick={() => setIsOpen(false)}>×</button>
-            </div>
-            
-            <div className="theme-grid">
-              {themesList.map((t) => (
-                <button
-                  key={t.id}
-                  className={`theme-option-card ${t.id} ${activeTheme === t.id ? 'active' : ''}`}
-                  onClick={() => {
-                    setTheme(t.id);
-                    setIsOpen(false);
-                  }}
-                >
-                  <div className="theme-preview-indicator">
-                    <span className="theme-preview-dot"></span>
-                  </div>
-                  <div className="theme-option-info">
-                    <div className="theme-option-name">
-                      {t.icon} {t.name}
-                    </div>
-                    <div className="theme-option-desc">{t.desc}</div>
-                  </div>
-                </button>
-              ))}
-
-              {/* Dynamic Custom Theme Card */}
-              <button
-                className={`theme-option-card custom ${activeTheme === THEMES.CUSTOM ? 'active' : ''}`}
-                onClick={selectCustomTheme}
-              >
-                <div className="theme-preview-indicator">
-                  <span className="theme-preview-dot" style={{ background: 'var(--btn-operator-bg, #ff9f0a)' }}></span>
-                </div>
-                <div className="theme-option-info" style={{ width: '100%' }}>
-                  <div className="theme-option-name" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span>🖼️ Custom</span>
-                    {hasCustomImage && (
-                      <span className="upload-link" onClick={triggerUpload} title="Tải ảnh khác lên">
-                        🔄 Đổi ảnh
-                      </span>
-                    )}
-                  </div>
-                  <div className="theme-option-desc">
-                    {hasCustomImage ? 'Nhấp chọn hoặc đổi ảnh mới' : 'Tải ảnh (.jpg, .png) của bạn lên'}
-                  </div>
-                </div>
-              </button>
-            </div>
+      {/* Screen loading overlay for color analysis */}
+      {isAnalyzing && (
+        <div className="theme-loading-overlay">
+          <div className="theme-loading-content">
+            <div className="theme-spinner"></div>
+            <p>Đang phân tích màu sắc và thiết lập giao diện...</p>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
