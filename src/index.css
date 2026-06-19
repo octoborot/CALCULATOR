@@ -1,0 +1,1214 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
+
+/* ==========================================================================
+   1. RESET & VARIABLE DEFINITIONS
+   ========================================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+:root {
+  /* Default Dark Theme variables */
+  --app-bg: radial-gradient(circle at top left, #1f2029, #0e0f14);
+  --calc-bg: #1a1a20;
+  --calc-border: #2c2c36;
+  --calc-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  --calc-glow: transparent;
+  --display-bg: #121216;
+  --display-border: transparent;
+  --display-text-current: #ffffff;
+  --display-text-prev: #8e8e93;
+  
+  --btn-digit-bg: #26262d;
+  --btn-digit-text: #ffffff;
+  --btn-digit-border: transparent;
+  --btn-digit-shadow: none;
+  --btn-digit-hover: #33333e;
+  --btn-digit-active: #40404f;
+
+  --btn-operator-bg: linear-gradient(135deg, #ff9f0a, #e08b00);
+  --btn-operator-text: #ffffff;
+  --btn-operator-border: transparent;
+  --btn-operator-shadow: none;
+  --btn-operator-hover: linear-gradient(135deg, #ffb340, #ff9f0a);
+  --btn-operator-active: linear-gradient(135deg, #e08b00, #c77b00);
+
+  --btn-action-bg: #3c3c43;
+  --btn-action-text: #eaeaea;
+  --btn-action-border: transparent;
+  --btn-action-shadow: none;
+  --btn-action-hover: #4e4e57;
+  --btn-action-active: #5d5d68;
+
+  --text-footer: #6e6e73;
+  --theme-toggle-bg: rgba(255, 255, 255, 0.08);
+  --theme-toggle-text: #ffffff;
+  --theme-toggle-hover: rgba(255, 255, 255, 0.15);
+  --card-radius: 28px;
+  --btn-radius: 18px;
+  --retro-border: none;
+  --rgb-glow: none;
+}
+
+/* --- THEME 2: MINIMAL --- */
+[data-theme="minimal"] {
+  --app-bg: #f5f5f7;
+  --calc-bg: #ffffff;
+  --calc-border: #e5e5e7;
+  --calc-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  --calc-glow: transparent;
+  --display-bg: #ffffff;
+  --display-border: transparent;
+  --display-text-current: #1d1d1f;
+  --display-text-prev: #86868b;
+
+  --btn-digit-bg: #f5f5f7;
+  --btn-digit-text: #1d1d1f;
+  --btn-digit-border: transparent;
+  --btn-digit-shadow: none;
+  --btn-digit-hover: #e8e8ed;
+  --btn-digit-active: #d2d2d7;
+
+  --btn-operator-bg: #1d1d1f;
+  --btn-operator-text: #ffffff;
+  --btn-operator-border: transparent;
+  --btn-operator-shadow: none;
+  --btn-operator-hover: #323236;
+  --btn-operator-active: #000000;
+
+  --btn-action-bg: #e8e8ed;
+  --btn-action-text: #1d1d1f;
+  --btn-action-border: transparent;
+  --btn-action-shadow: none;
+  --btn-action-hover: #d2d2d7;
+  --btn-action-active: #c7c7cc;
+
+  --text-footer: #86868b;
+  --theme-toggle-bg: #e8e8ed;
+  --theme-toggle-text: #1d1d1f;
+  --theme-toggle-hover: #d2d2d7;
+  --card-radius: 12px;
+  --btn-radius: 6px;
+}
+
+/* --- THEME 3: NEON (Cyberpunk) --- */
+[data-theme="neon"] {
+  --app-bg: radial-gradient(circle at center, #070712 0%, #010103 100%);
+  --calc-bg: #030307;
+  --calc-border: #00f0ff;
+  --calc-shadow: 0 0 25px rgba(0, 240, 255, 0.35);
+  --calc-glow: 0 0 15px rgba(0, 240, 255, 0.1);
+  --display-bg: #000000;
+  --display-border: #ff0055;
+  --display-text-current: #00f0ff;
+  --display-text-prev: #ff0055;
+
+  --btn-digit-bg: #080315;
+  --btn-digit-text: #ff007f;
+  --btn-digit-border: 1px solid #ff007f;
+  --btn-digit-shadow: 0 0 8px rgba(255, 0, 127, 0.25);
+  --btn-digit-hover: #ff007f;
+  --btn-digit-active: #b5005a;
+  
+  --btn-operator-bg: #001222;
+  --btn-operator-text: #00f0ff;
+  --btn-operator-border: 1px solid #00f0ff;
+  --btn-operator-shadow: 0 0 8px rgba(0, 240, 255, 0.25);
+  --btn-operator-hover: #00f0ff;
+  --btn-operator-active: #009cb5;
+
+  --btn-action-bg: #0d0a02;
+  --btn-action-text: #ffb700;
+  --btn-action-border: 1px solid #ffb700;
+  --btn-action-shadow: 0 0 8px rgba(255, 183, 0, 0.25);
+  --btn-action-hover: #ffb700;
+  --btn-action-active: #b58200;
+
+  --text-footer: #ff007f;
+  --theme-toggle-bg: #001222;
+  --theme-toggle-text: #00f0ff;
+  --theme-toggle-hover: #00f0ff;
+  --card-radius: 20px;
+  --btn-radius: 12px;
+}
+
+/* --- THEME 4: GLASSMORPHISM --- */
+[data-theme="glass"] {
+  --app-bg: linear-gradient(135deg, #110029 0%, #001a33 100%);
+  --calc-bg: rgba(255, 255, 255, 0.05);
+  --calc-border: rgba(255, 255, 255, 0.12);
+  --calc-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --calc-glow: transparent;
+  --display-bg: rgba(0, 0, 0, 0.2);
+  --display-border: rgba(255, 255, 255, 0.05);
+  --display-text-current: #ffffff;
+  --display-text-prev: rgba(255, 255, 255, 0.6);
+
+  --btn-digit-bg: rgba(255, 255, 255, 0.04);
+  --btn-digit-text: #ffffff;
+  --btn-digit-border: 1px solid rgba(255, 255, 255, 0.06);
+  --btn-digit-shadow: none;
+  --btn-digit-hover: rgba(255, 255, 255, 0.12);
+  --btn-digit-active: rgba(255, 255, 255, 0.18);
+
+  --btn-operator-bg: rgba(138, 43, 226, 0.25);
+  --btn-operator-text: #ffffff;
+  --btn-operator-border: 1px solid rgba(138, 43, 226, 0.35);
+  --btn-operator-shadow: none;
+  --btn-operator-hover: rgba(138, 43, 226, 0.45);
+  --btn-operator-active: rgba(138, 43, 226, 0.6);
+
+  --btn-action-bg: rgba(255, 255, 255, 0.1);
+  --btn-action-text: #ffffff;
+  --btn-action-border: 1px solid rgba(255, 255, 255, 0.1);
+  --btn-action-shadow: none;
+  --btn-action-hover: rgba(255, 255, 255, 0.2);
+  --btn-action-active: rgba(255, 255, 255, 0.3);
+
+  --text-footer: rgba(255, 255, 255, 0.4);
+  --theme-toggle-bg: rgba(255, 255, 255, 0.08);
+  --theme-toggle-text: #ffffff;
+  --theme-toggle-hover: rgba(255, 255, 255, 0.15);
+  --card-radius: 32px;
+  --btn-radius: 20px;
+}
+
+/* --- THEME 5: NEUMORPHISM --- */
+[data-theme="neumorphic"] {
+  --app-bg: #e0e0e0;
+  --calc-bg: #e0e0e0;
+  --calc-border: transparent;
+  --calc-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+  --calc-glow: transparent;
+  --display-bg: #e0e0e0;
+  --display-border: transparent;
+  --display-text-current: #3a3a3a;
+  --display-text-prev: #7e7e7e;
+
+  --btn-digit-bg: #e0e0e0;
+  --btn-digit-text: #4f4f4f;
+  --btn-digit-border: transparent;
+  --btn-digit-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+  --btn-digit-hover: #e5e5e5;
+  --btn-digit-active: inset 3px 3px 6px #bebebe, inset -3px -3px 6px #ffffff;
+
+  --btn-operator-bg: #e0e0e0;
+  --btn-operator-text: #ff9f0a;
+  --btn-operator-border: transparent;
+  --btn-operator-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+  --btn-operator-hover: #e8e8e8;
+  --btn-operator-active: inset 3px 3px 6px #bebebe, inset -3px -3px 6px #ffffff;
+
+  --btn-action-bg: #e0e0e0;
+  --btn-action-text: #f33535;
+  --btn-action-border: transparent;
+  --btn-action-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+  --btn-action-hover: #e5e5e5;
+  --btn-action-active: inset 3px 3px 6px #bebebe, inset -3px -3px 6px #ffffff;
+
+  --text-footer: #7e7e7e;
+  --theme-toggle-bg: #e0e0e0;
+  --theme-toggle-text: #4f4f4f;
+  --theme-toggle-hover: #dcdcdc;
+  --card-radius: 30px;
+  --btn-radius: 20px;
+}
+
+/* --- THEME 6: RETRO (Win 95 Classic) --- */
+[data-theme="retro"] {
+  --app-bg: #008080; /* Win95 Teal */
+  --calc-bg: #c0c0c0; /* Beige grey */
+  --calc-border: 2px outset #ffffff;
+  --calc-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  --calc-glow: transparent;
+  --display-bg: #c5cbb4; /* Retro green LCD */
+  --display-border: 3px inset #808080;
+  --display-text-current: #000000;
+  --display-text-prev: #555555;
+
+  --btn-digit-bg: #c0c0c0;
+  --btn-digit-text: #000000;
+  --btn-digit-border: 2px outset #ffffff;
+  --btn-digit-shadow: none;
+  --btn-digit-hover: #d4d4d4;
+  --btn-digit-active: 2px inset #ffffff;
+
+  --btn-operator-bg: #c0c0c0;
+  --btn-operator-text: #000000;
+  --btn-operator-border: 2px outset #ffffff;
+  --btn-operator-shadow: none;
+  --btn-operator-hover: #d4d4d4;
+  --btn-operator-active: 2px inset #ffffff;
+
+  --btn-action-bg: #c0c0c0;
+  --btn-action-text: #800000; /* Dark red */
+  --btn-action-border: 2px outset #ffffff;
+  --btn-action-shadow: none;
+  --btn-action-hover: #d4d4d4;
+  --btn-action-active: 2px inset #ffffff;
+
+  --text-footer: #ffffff;
+  --theme-toggle-bg: #c0c0c0;
+  --theme-toggle-text: #000000;
+  --theme-toggle-hover: #d4d4d4;
+  --card-radius: 0px; /* Windows 95 is sharp */
+  --btn-radius: 0px;
+  --retro-border: 2px inset #ffffff;
+}
+
+/* --- THEME 7: SPACE --- */
+[data-theme="space"] {
+  --app-bg: radial-gradient(circle at center, #0f0a2e 0%, #03020c 100%);
+  --calc-bg: #08061b;
+  --calc-border: #281c56;
+  --calc-shadow: 0 0 35px rgba(88, 48, 207, 0.3);
+  --calc-glow: 0 0 10px rgba(88, 48, 207, 0.1);
+  --display-bg: #03020c;
+  --display-border: rgba(88, 48, 207, 0.2);
+  --display-text-current: #ffcc00;
+  --display-text-prev: #ae97ec;
+
+  --btn-digit-bg: #110e30;
+  --btn-digit-text: #d4d1ff;
+  --btn-digit-border: 1px solid #281c56;
+  --btn-digit-shadow: none;
+  --btn-digit-hover: #1b1649;
+  --btn-digit-active: #231c5f;
+
+  --btn-operator-bg: linear-gradient(135deg, #ec4899, #8b5cf6);
+  --btn-operator-text: #ffffff;
+  --btn-operator-border: transparent;
+  --btn-operator-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+  --btn-operator-hover: linear-gradient(135deg, #f472b6, #a78bfa);
+  --btn-operator-active: linear-gradient(135deg, #db2777, #7c3aed);
+
+  --btn-action-bg: #1d1645;
+  --btn-action-text: #ec4899;
+  --btn-action-border: 1px solid rgba(236, 72, 153, 0.3);
+  --btn-action-shadow: none;
+  --btn-action-hover: #2a2060;
+  --btn-action-active: #332675;
+
+  --text-footer: #8b5cf6;
+  --theme-toggle-bg: #110e30;
+  --theme-toggle-text: #d4d1ff;
+  --theme-toggle-hover: #1b1649;
+  --card-radius: 26px;
+  --btn-radius: 16px;
+}
+
+/* --- THEME 8: GAMING (RGB LED) --- */
+[data-theme="gaming"] {
+  --app-bg: #0a0a0c;
+  --calc-bg: #141416;
+  --calc-border: transparent;
+  --calc-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+  --calc-glow: 0 0 20px rgba(0, 255, 127, 0.1);
+  --display-bg: #09090b;
+  --display-border: #222;
+  --display-text-current: #00ff66;
+  --display-text-prev: #00b3ff;
+
+  --btn-digit-bg: #1f1f23;
+  --btn-digit-text: #ffffff;
+  --btn-digit-border: 1px solid #2d2d34;
+  --btn-digit-shadow: none;
+  --btn-digit-hover: #2b2b31;
+  --btn-digit-active: #3a3a42;
+
+  --btn-operator-bg: #1c141d;
+  --btn-operator-text: #ff0055;
+  --btn-operator-border: 1px solid rgba(255, 0, 85, 0.4);
+  --btn-operator-shadow: 0 0 8px rgba(255, 0, 85, 0.1);
+  --btn-operator-hover: #ff0055;
+  --btn-operator-active: #cc0044;
+
+  --btn-action-bg: #141a21;
+  --btn-action-text: #00d9ff;
+  --btn-action-border: 1px solid rgba(0, 217, 255, 0.4);
+  --btn-action-shadow: 0 0 8px rgba(0, 217, 255, 0.1);
+  --btn-action-hover: #00d9ff;
+  --btn-action-active: #00aed6;
+
+  --text-footer: #ff0055;
+  --theme-toggle-bg: #1f1f23;
+  --theme-toggle-text: #ffffff;
+  --theme-toggle-hover: #2b2b31;
+  --card-radius: 16px;
+  --btn-radius: 8px;
+  --rgb-glow: 0 0 20px rgba(255, 0, 85, 0.3);
+}
+
+/* --- THEME 9: GUMBALL & DARWIN --- */
+[data-theme="gumball"] {
+  --app-bg: url('/bg-gumball.jpg') no-repeat center center / cover;
+  --calc-bg: rgba(253, 251, 246, 0.94);
+  --calc-border: #000000;
+  --calc-shadow: 8px 8px 0px #000000;
+  --calc-glow: transparent;
+  --display-bg: #ffffff;
+  --display-border: #000000;
+  --display-text-current: #000000;
+  --display-text-prev: #555555;
+
+  --btn-digit-bg: #fdedc5;
+  --btn-digit-text: #000000;
+  --btn-digit-border: 2px solid #000000;
+  --btn-digit-shadow: 3px 3px 0px #000000;
+  --btn-digit-hover: #fbe5aa;
+  --btn-digit-active: #e5cb8e;
+
+  --btn-operator-bg: #5bb2f1;
+  --btn-operator-text: #ffffff;
+  --btn-operator-border: 2px solid #000000;
+  --btn-operator-shadow: 3px 3px 0px #000000;
+  --btn-operator-hover: #72c0f7;
+  --btn-operator-active: #3e98d8;
+
+  --btn-action-bg: #f1703e;
+  --btn-action-text: #ffffff;
+  --btn-action-border: 2px solid #000000;
+  --btn-action-shadow: 3px 3px 0px #000000;
+  --btn-action-hover: #ff8757;
+  --btn-action-active: #d65928;
+
+  --text-footer: #000000;
+  --theme-toggle-bg: #fdedc5;
+  --theme-toggle-text: #000000;
+  --theme-toggle-hover: #fbe5aa;
+  --card-radius: 24px;
+  --btn-radius: 16px;
+}
+
+
+/* ==========================================================================
+   2. KEYFRAMES & RGB ANIMATIONS
+   ========================================================================== */
+
+@keyframes rgb-flow {
+  0% { border-color: #ff0055; box-shadow: 0 0 15px rgba(255, 0, 85, 0.3); }
+  33% { border-color: #00ff66; box-shadow: 0 0 15px rgba(0, 255, 102, 0.3); }
+  66% { border-color: #00d9ff; box-shadow: 0 0 15px rgba(0, 217, 255, 0.3); }
+  100% { border-color: #ff0055; box-shadow: 0 0 15px rgba(255, 0, 85, 0.3); }
+}
+
+[data-theme="gaming"] .calculator-wrapper {
+  animation: rgb-flow 8s linear infinite;
+  border-width: 2px;
+  border-style: solid;
+}
+
+
+/* ==========================================================================
+   3. APP CONTAINER & BASIC LAYOUT
+   ========================================================================== */
+
+body {
+  background: var(--app-bg);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--display-text-current);
+  transition: background 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  max-width: 440px;
+}
+
+
+/* ==========================================================================
+   4. CALCULATOR WRAPPER
+   ========================================================================== */
+
+.calculator-wrapper {
+  background: var(--calc-bg);
+  border: 1px solid var(--calc-border);
+  box-shadow: var(--calc-shadow);
+  border-radius: var(--card-radius);
+  width: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Retro specific bevel outline styles */
+[data-theme="retro"] .calculator-wrapper {
+  border-left: 3px solid #ffffff;
+  border-top: 3px solid #ffffff;
+  border-right: 3px solid #808080;
+  border-bottom: 3px solid #808080;
+  box-shadow: 4px 4px 0px #000000;
+}
+
+/* Header actions panel */
+.calculator-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+}
+
+/* Sound configuration switcher */
+.sound-toggle-btn {
+  background: var(--theme-toggle-bg);
+  border: none;
+  color: var(--theme-toggle-text);
+  padding: 8px 12px;
+  border-radius: 99px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.sound-toggle-btn:hover {
+  background: var(--theme-toggle-hover);
+  transform: translateY(-1px);
+}
+
+.sound-toggle-btn:active {
+  transform: translateY(0);
+}
+
+[data-theme="retro"] .sound-toggle-btn {
+  border-left: 2px solid #ffffff;
+  border-top: 2px solid #ffffff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  border-radius: 0;
+  font-weight: normal;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+[data-theme="retro"] .sound-toggle-btn:active {
+  border-left: 2px solid #808080;
+  border-top: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+
+[data-theme="neon"] .sound-toggle-btn {
+  border: 1px solid var(--theme-toggle-text);
+  box-shadow: 0 0 6px rgba(0, 240, 255, 0.2);
+}
+
+
+/* ==========================================================================
+   5. THEME SWITCHER UI
+   ========================================================================== */
+
+.theme-switcher-container {
+  position: relative;
+}
+
+.theme-switcher-toggle {
+  background: var(--theme-toggle-bg);
+  border: none;
+  color: var(--theme-toggle-text);
+  padding: 8px 14px;
+  border-radius: 99px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.theme-switcher-toggle:hover {
+  background: var(--theme-toggle-hover);
+}
+
+.toggle-arrow {
+  font-size: 0.6rem;
+  transition: transform 0.2s ease;
+}
+
+.toggle-arrow.open {
+  transform: rotate(180deg);
+}
+
+[data-theme="retro"] .theme-switcher-toggle {
+  border-left: 2px solid #ffffff;
+  border-top: 2px solid #ffffff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  border-radius: 0;
+  font-weight: normal;
+}
+
+[data-theme="retro"] .theme-switcher-toggle:active {
+  border-left: 2px solid #808080;
+  border-top: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+
+/* Droplist panel overlay */
+.theme-dropdown-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.theme-dropdown-panel {
+  background: #18181f;
+  border: 1px solid #2e2e3a;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  animation: modal-enter 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+[data-theme="minimal"] .theme-dropdown-panel {
+  background: #ffffff;
+  border: 1px solid #e5e5e7;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  color: #1d1d1f;
+}
+
+[data-theme="retro"] .theme-dropdown-panel {
+  background: #c0c0c0;
+  border-left: 2px solid #ffffff;
+  border-top: 2px solid #ffffff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  box-shadow: 4px 4px 0 #000000;
+  border-radius: 0;
+  color: #000000;
+}
+
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.theme-dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-bottom: 12px;
+}
+
+[data-theme="minimal"] .theme-dropdown-header {
+  border-bottom: 1px solid #e5e5e7;
+}
+
+[data-theme="retro"] .theme-dropdown-header {
+  border-bottom: 2px solid #808080;
+}
+
+.theme-dropdown-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.close-dropdown-btn {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+/* Grid of themes */
+.theme-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Scrollbar tuning */
+.theme-grid::-webkit-scrollbar {
+  width: 4px;
+}
+.theme-grid::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 99px;
+}
+
+.theme-option-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #2e2e3a;
+  background: #1f1f27;
+  color: #ffffff;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+[data-theme="minimal"] .theme-option-card {
+  background: #f5f5f7;
+  border-color: #e5e5e7;
+  color: #1d1d1f;
+}
+
+[data-theme="retro"] .theme-option-card {
+  background: #c0c0c0;
+  border-left: 2px solid #ffffff;
+  border-top: 2px solid #ffffff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  border-radius: 0;
+  color: #000000;
+}
+
+.theme-option-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.theme-option-card.active {
+  border-color: #ff9f0a;
+  background: rgba(255, 159, 10, 0.08);
+}
+
+[data-theme="minimal"] .theme-option-card.active {
+  border-color: #1d1d1f;
+  background: rgba(29, 29, 31, 0.05);
+}
+
+[data-theme="retro"] .theme-option-card.active {
+  border-left: 2px solid #808080;
+  border-top: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  background: #e0e0e0;
+}
+
+/* Customized theme indicators preview circles */
+.theme-preview-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 99px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.theme-option-card.dark .theme-preview-indicator { background: #26262d; border: 1px solid #2c2c36; }
+.theme-option-card.minimal .theme-preview-indicator { background: #f5f5f7; border: 1px solid #1d1d1f; }
+.theme-option-card.neon .theme-preview-indicator { background: #000000; border: 1px solid #00f0ff; }
+.theme-option-card.glass .theme-preview-indicator { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); }
+.theme-option-card.neumorphic .theme-preview-indicator { background: #e0e0e0; border: 1px solid #bebebe; }
+.theme-option-card.retro .theme-preview-indicator { background: #c0c0c0; border: 1px solid #808080; }
+.theme-option-card.space .theme-preview-indicator { background: #110e30; border: 1px solid #ffcc00; }
+.theme-option-card.gaming .theme-preview-indicator { background: #000000; border: 1px solid #ff0055; }
+.theme-option-card.gumball .theme-preview-indicator { background: #5bb2f1; border: 1px solid #f1703e; }
+
+[data-theme="gumball"] .theme-option-card {
+  background: #fdedc5;
+  color: #000000;
+  border: 1px solid #000000;
+}
+[data-theme="gumball"] .theme-option-card.active {
+  border-color: #f1703e;
+  background: rgba(241, 112, 62, 0.15);
+}
+
+.theme-option-card.custom .theme-preview-indicator { background: var(--btn-operator-bg, #ffd700); border: 1px solid var(--btn-action-bg, #ff5500); }
+.upload-link {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: #00d9ff;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.upload-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+[data-theme="minimal"] .upload-link {
+  color: #1d1d1f;
+  background: rgba(0, 0, 0, 0.04);
+}
+[data-theme="minimal"] .upload-link:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+[data-theme="gumball"] .upload-link {
+  color: #f1703e;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid #000000;
+}
+[data-theme="gumball"] .upload-link:hover {
+  background: #f1703e;
+  color: #ffffff;
+}
+
+.theme-option-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.theme-option-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.theme-option-desc {
+  font-size: 0.65rem;
+  opacity: 0.6;
+  margin-top: 2px;
+}
+
+
+/* ==========================================================================
+   6. CALCULATOR DISPLAY
+   ========================================================================== */
+
+.calc-display {
+  background: var(--display-bg);
+  border: 1px solid var(--display-border);
+  min-height: 110px;
+  padding: 16px 20px;
+  border-radius: calc(var(--card-radius) - 8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  word-wrap: break-word;
+  word-break: break-all;
+  gap: 4px;
+  transition: all 0.3s ease;
+}
+
+/* Windows 95 LCD retro style */
+[data-theme="retro"] .calc-display {
+  font-family: 'Share Tech Mono', monospace;
+  border-radius: 0;
+  border-left: 3px solid #808080;
+  border-top: 3px solid #808080;
+  border-right: 3px solid #ffffff;
+  border-bottom: 3px solid #ffffff;
+}
+
+.previous-operand {
+  color: var(--display-text-prev);
+  font-size: 1.1rem;
+  font-weight: 400;
+  min-height: 24px;
+  transition: color 0.3s ease;
+}
+
+[data-theme="retro"] .previous-operand {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+.current-operand {
+  color: var(--display-text-current);
+  font-weight: 500;
+  text-align: right;
+  line-height: 1.2;
+  transition: font-size 0.15s ease, color 0.3s ease;
+  width: 100%;
+}
+
+[data-theme="retro"] .current-operand {
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: bold;
+}
+
+/* Glow effects for specific themes */
+[data-theme="neon"] .current-operand {
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.7);
+}
+[data-theme="neon"] .previous-operand {
+  text-shadow: 0 0 8px rgba(255, 0, 85, 0.5);
+}
+
+[data-theme="gaming"] .current-operand {
+  text-shadow: 0 0 12px rgba(0, 255, 102, 0.6);
+}
+[data-theme="gaming"] .previous-operand {
+  text-shadow: 0 0 8px rgba(0, 217, 255, 0.5);
+}
+
+
+/* ==========================================================================
+   7. CALCULATOR KEYPAD & BUTTONS
+   ========================================================================== */
+
+.calc-keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.calc-btn {
+  border: var(--btn-digit-border);
+  border-radius: var(--btn-radius);
+  height: 64px;
+  font-size: 1.45rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--btn-digit-shadow);
+}
+
+/* Keypad Grid Spans */
+.span-2 {
+  grid-column: span 2;
+}
+
+.span-4 {
+  grid-column: span 4;
+}
+
+/* Specific button styles mapping */
+
+/* 1. Digit keys */
+.btn-digit {
+  background: var(--btn-digit-bg);
+  color: var(--btn-digit-text);
+}
+.btn-digit:hover {
+  background: var(--btn-digit-hover);
+}
+.btn-digit:active {
+  background: var(--btn-digit-active);
+  transform: scale(0.96);
+}
+
+/* 2. Operator keys */
+.btn-operator {
+  background: var(--btn-operator-bg);
+  color: var(--btn-operator-text);
+  font-weight: 600;
+  box-shadow: var(--btn-operator-shadow);
+}
+.btn-operator:hover {
+  background: var(--btn-operator-hover);
+}
+.btn-operator:active {
+  background: var(--btn-operator-active);
+  transform: scale(0.96);
+}
+
+/* 3. Action keys (AC, DEL) */
+.btn-action {
+  background: var(--btn-action-bg);
+  color: var(--btn-action-text);
+  font-weight: 500;
+  box-shadow: var(--btn-action-shadow);
+}
+.btn-action:hover {
+  background: var(--btn-action-hover);
+}
+.btn-action:active {
+  background: var(--btn-action-active);
+  transform: scale(0.96);
+}
+
+/* Equals styling overrides */
+.btn-equals {
+  font-size: 1.7rem;
+}
+
+
+/* ==========================================================================
+   8. SPECIFIC THEME MODIFIER OVERRIDES & INTERACTIVE GLOWS
+   ========================================================================== */
+
+/* --- Neumorphism Inner Press Feel --- */
+[data-theme="neumorphic"] .calc-btn:active {
+  box-shadow: var(--btn-digit-active);
+  transform: scale(0.98);
+}
+[data-theme="neumorphic"] .btn-operator:active {
+  box-shadow: inset 3px 3px 6px #b8701a, inset -3px -3px 6px #ffc874;
+}
+
+/* --- Cyber Neon Glowing Borders and Hover Text colors --- */
+[data-theme="neon"] .calc-btn {
+  transition: all 0.25s ease;
+}
+
+[data-theme="neon"] .btn-digit:hover {
+  box-shadow: 0 0 15px rgba(255, 0, 127, 0.8);
+  color: #000000;
+}
+[data-theme="neon"] .btn-digit:active {
+  background: #b5005a;
+  border-color: #b5005a;
+  color: #000000;
+}
+
+[data-theme="neon"] .btn-operator:hover {
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.8);
+  color: #000000;
+}
+[data-theme="neon"] .btn-operator:active {
+  background: #009cb5;
+  border-color: #009cb5;
+  color: #000000;
+}
+
+[data-theme="neon"] .btn-action:hover {
+  box-shadow: 0 0 15px rgba(255, 183, 0, 0.8);
+  color: #000000;
+}
+[data-theme="neon"] .btn-action:active {
+  background: #b58200;
+  border-color: #b58200;
+  color: #000000;
+}
+
+/* --- Windows 95 Bevel Active States --- */
+[data-theme="retro"] .calc-btn {
+  border-left: 2px solid #ffffff;
+  border-top: 2px solid #ffffff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  border-radius: 0;
+  transition: none;
+}
+[data-theme="retro"] .calc-btn:active {
+  border-left: 2px solid #808080;
+  border-top: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  transform: translate(1px, 1px);
+}
+
+/* --- Gaming Led RGB Hover Animation --- */
+[data-theme="gaming"] .calc-btn {
+  transition: all 0.2s ease;
+}
+
+[data-theme="gaming"] .btn-digit:hover {
+  border-color: #00ff66;
+  color: #00ff66;
+  box-shadow: 0 0 12px rgba(0, 255, 102, 0.4);
+}
+[data-theme="gaming"] .btn-operator:hover {
+  background: #ff0055;
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 0, 85, 0.7);
+}
+[data-theme="gaming"] .btn-action:hover {
+  background: #00d9ff;
+  color: #000000;
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.7);
+}
+
+/* --- Gumball & Custom Pop-Art Comic Styles --- */
+[data-theme="gumball"] .calc-btn,
+[data-theme="custom"] .calc-btn {
+  border: 2px solid var(--calc-border, #000000);
+  box-shadow: var(--btn-digit-shadow, 3px 3px 0px #000000);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+[data-theme="gumball"] .calc-btn:active,
+[data-theme="custom"] .calc-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000000;
+}
+[data-theme="gumball"] .calc-display,
+[data-theme="custom"] .calc-display {
+  border: 2px solid var(--calc-border, #000000);
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1);
+}
+[data-theme="gumball"] .calculator-wrapper,
+[data-theme="custom"] .calculator-wrapper {
+  border: 3px solid var(--calc-border, #000000);
+  box-shadow: var(--calc-shadow, 8px 8px 0px #000000);
+}
+
+
+/* ==========================================================================
+   9. FOOTER SECTION
+   ========================================================================== */
+
+.calculator-footer {
+  text-align: center;
+  margin-top: 4px;
+}
+
+.calculator-footer p {
+  font-size: 0.75rem;
+  color: var(--text-footer);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+[data-theme="retro"] .calculator-footer p {
+  font-family: 'Share Tech Mono', monospace;
+  text-transform: uppercase;
+}
+
+
+/* ==========================================================================
+   10. MOBILE & DESKTOP RESPONSIVENESS
+   ========================================================================== */
+
+/* Desktop Landscape Layout */
+@media (min-width: 768px) {
+  .app-container {
+    max-width: 800px;
+    padding: 20px;
+  }
+
+  .calculator-wrapper {
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .calculator-body {
+    display: grid;
+    grid-template-columns: 1.1fr 1.3fr;
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .calc-display {
+    height: 100%;
+    min-height: 100%;
+    justify-content: space-between; /* History at top, current input at bottom */
+    padding: 24px 20px;
+  }
+
+  .previous-operand {
+    font-size: 1.25rem;
+    text-align: right;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: 0;
+    max-width: 100%;
+    height: 100vh;
+  }
+
+  .calculator-wrapper {
+    height: 100vh;
+    border-radius: 0;
+    justify-content: space-between;
+    padding: 20px 16px env(safe-area-inset-bottom) 16px;
+    gap: 12px;
+  }
+
+  [data-theme="retro"] .calculator-wrapper {
+    border: none;
+    box-shadow: none;
+  }
+
+  .calc-display {
+    min-height: 140px;
+    flex-grow: 1;
+    margin-bottom: 8px;
+  }
+
+  .calc-keypad {
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .calc-btn {
+    height: 60px;
+    font-size: 1.35rem;
+  }
+
+  .btn-equals {
+    height: 64px;
+  }
+}
+
+/* Support taller phones or custom device settings */
+@media (max-height: 700px) and (max-width: 480px) {
+  .calc-display {
+    min-height: 100px;
+  }
+  
+  .calc-btn {
+    height: 52px;
+  }
+  
+  .btn-equals {
+    height: 52px;
+  }
+}
+
+/* Accessibility screen-reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
