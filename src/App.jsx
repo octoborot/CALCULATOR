@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThemeProvider } from './context/ThemeContext';
+import { ThemeProvider } from './context/ThemeContext.jsx';
 import Calculator from './components/calculator/Calculator';
 
 function App() {

@@ -1,6 +1,7 @@
 import { useReducer, useEffect, useState, useCallback } from 'react';
 import { ACTIONS } from '../reducers/calculatorActions';
 import { calculatorReducer, initialState } from '../reducers/calculatorReducer';
+import { playClickSound } from '../utils/audioUtils';
 
 export const useCalculator = () => {
   const [state, dispatch] = useReducer(calculatorReducer, initialState);
@@ -13,30 +14,9 @@ export const useCalculator = () => {
     localStorage.setItem('calculator-sound', soundEnabled);
   }, [soundEnabled]);
 
-  // Synthesize a premium haptic click sound using Web Audio API
   const playClick = useCallback(() => {
-    if (!soundEnabled) return;
-    try {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContextClass) return;
-      
-      const audioCtx = new AudioContextClass();
-      const osc = audioCtx.createOscillator();
-      const gainNode = audioCtx.createGain();
-      
-      osc.connect(gainNode);
-      gainNode.connect(audioCtx.destination);
-      
-      osc.type = 'sine';
-      // High frequency, quick decay click
-      osc.frequency.setValueAtTime(1000, audioCtx.currentTime);
-      gainNode.gain.setValueAtTime(0.03, audioCtx.currentTime); // subtle volume
-      gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.04);
-      
-      osc.start(audioCtx.currentTime);
-      osc.stop(audioCtx.currentTime + 0.04);
-    } catch (e) {
-      console.warn('Web Audio API not supported or blocked:', e);
+    if (soundEnabled) {
+      playClickSound();
     }
   }, [soundEnabled]);
 

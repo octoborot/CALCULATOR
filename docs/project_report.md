@@ -69,7 +69,11 @@ graph TD
 
 - `Display.jsx`: Hiển thị số liệu đầu vào hiện tại, các phép tính trước đó và toán tử đang hoạt động.
 - `Keypad.jsx`: Bố trí lưới nút bấm (Grid layout 4x5) gồm các phím số, toán tử và phím điều hướng chức năng.
-- `ThemeSwitcher.jsx`: Quản lý nút bấm lựa chọn chủ đề tích hợp logic tải ảnh lên.
+- `ThemeSwitcher.jsx`: Quản lý giao diện nút chọn theme dropdown, nút Custom bên ngoài và kích hoạt màn hình chờ load.
+- `ThemeContext.js` & `ThemeContext.jsx`: Quản lý Context và Component Provider cung cấp trạng thái theme toàn cục.
+- `useTheme.js`: Custom hook cung cấp quyền truy cập nhanh vào trạng thái theme.
+- `themeUtils.js`: Thuật toán phân tích pixel Canvas và chỉnh sửa CSS Variables động.
+- `audioUtils.js`: Tổng hợp tần số âm thanh click haptic sử dụng Web Audio API.
 
 ### 3.2. Quản lý trạng thái máy tính (Calculator Reducer)
 Toàn bộ logic tính toán được tập trung tại `calculatorReducer.js` với các hành động (actions) chính:

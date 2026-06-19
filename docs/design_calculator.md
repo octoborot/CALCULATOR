@@ -35,22 +35,35 @@
 ```text
 src
 ├── components
+│   ├── calculator
+│   │   └── Calculator.jsx
 │   ├── common
 │   │   ├── Button.jsx
 │   │   ├── Display.jsx
 │   │   └── Keypad.jsx
-│   │
-│   └── calculator
-│       └── Calculator.jsx
+│   └── ThemeSwitcher.jsx
+│
+├── constants
+│   └── themeConstants.js
+│
+├── context
+│   ├── ThemeContext.js
+│   └── ThemeContext.jsx
 │
 ├── hooks
-│   └── useCalculator.js
+│   ├── useCalculator.js
+│   └── useTheme.js
 │
 ├── reducers
 │   ├── calculatorReducer.js
 │   └── calculatorActions.js
 │
+├── utils
+│   ├── audioUtils.js
+│   └── themeUtils.js
+│
 ├── App.jsx
+├── index.css
 └── main.jsx
 ```
 
@@ -213,26 +226,15 @@ RGB và hiệu ứng phát sáng.
 
 ---
 
-# 📂 Mở rộng cấu trúc
+# 📂 Cấu trúc mở rộng Modular
 
-```text
-src
-├── themes
-│   ├── darkTheme.js
-│   ├── neonTheme.js
-│   ├── glassTheme.js
-│   ├── retroTheme.js
-│   └── spaceTheme.js
-│
-├── context
-│   └── ThemeContext.jsx
-│
-├── components
-│   ├── ThemeSwitcher.jsx
-│   ├── Calculator.jsx
-│   ├── Display.jsx
-│   └── Button.jsx
-```
+Để tích hợp cơ chế đổi theme động và xử lý âm thanh click haptic, ứng dụng đã mở rộng thêm các mô-đun:
+
+* **Theme Constants (`src/constants/themeConstants.js`)**: Quản lý danh sách hằng số theme.
+* **Theme Context (`src/context/ThemeContext.js` & `src/context/ThemeContext.jsx`)**: Quản lý trạng thái và cung cấp dữ liệu theme.
+* **Theme Utils (`src/utils/themeUtils.js`)**: Thuật toán phân tích màu ảnh (Canvas) và cập nhật CSS Variables.
+* **Audio Utils (`src/utils/audioUtils.js`)**: Hàm tiện ích phát âm thanh Click haptic sử dụng Web Audio API.
+* **Hooks Custom (`src/hooks/useTheme.js` & `src/hooks/useCalculator.js`)**: Cung cấp giao diện truy cập nhanh vào hệ thống theme và logic máy tính.
 
 ---
 

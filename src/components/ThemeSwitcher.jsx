@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
-import { useTheme, THEMES } from '../context/ThemeContext';
+import { useTheme } from '../hooks/useTheme';
+import { THEMES } from '../constants/themeConstants';
 
 const themesList = [
   { id: THEMES.DARK, name: 'Dark', icon: '🌙', desc: 'Modern & Sleek' },
