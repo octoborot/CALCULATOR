@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { useTheme } from '../hooks/useTheme';
 import { THEMES } from '../constants/themeConstants';
+import { rotateImage90Degrees } from '../utils/themeUtils';
 
 const themesList = [
   { id: THEMES.DARK, name: 'Dark', icon: '🌙', desc: 'Modern & Sleek' },
@@ -68,6 +69,22 @@ const ThemeSwitcher = () => {
         // Otherwise prompt upload
         fileInputRef.current.click();
       }
+    }
+  };
+
+  const handleRotate = async (e) => {
+    e.stopPropagation();
+    const currentImg = localStorage.getItem('calculator-custom-image');
+    if (!currentImg) return;
+    
+    setIsAnalyzing(true);
+    try {
+      const rotated = await rotateImage90Degrees(currentImg);
+      await applyCustomThemeImage(rotated);
+      window.location.reload();
+    } catch (err) {
+      console.error('Error rotating background image:', err);
+      setIsAnalyzing(false);
     }
   };
 
@@ -153,6 +170,18 @@ const ThemeSwitcher = () => {
           {activeTheme === THEMES.CUSTOM ? "Custom" : (hasCustomImage ? "Custom" : "Tải ảnh")}
         </span>
       </button>
+
+      {/* Rotate Button (only shown when custom theme is active and has image) */}
+      {activeTheme === THEMES.CUSTOM && hasCustomImage && (
+        <button
+          className="custom-theme-rotate"
+          onClick={handleRotate}
+          title="Xoay hình nền 90°"
+          aria-label="Rotate Image"
+        >
+          🔄
+        </button>
+      )}
 
       {/* Screen loading overlay for color analysis */}
       {isAnalyzing && (

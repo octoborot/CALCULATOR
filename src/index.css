@@ -615,8 +615,30 @@ body {
   font-weight: 600;
 }
 
-/* Theme overrides for custom toggle */
-[data-theme="retro"] .custom-theme-toggle {
+/* Rotate Button styles */
+.custom-theme-rotate {
+  background: var(--theme-toggle-bg);
+  border: 1.5px solid transparent;
+  color: var(--theme-toggle-text);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease-out;
+}
+
+.custom-theme-rotate:hover {
+  background: var(--theme-toggle-hover);
+  transform: rotate(90deg); /* Smooth spin animation on hover */
+}
+
+/* Theme overrides for custom toggle and rotate button */
+[data-theme="retro"] .custom-theme-toggle,
+[data-theme="retro"] .custom-theme-rotate {
   border-left: 2px solid #ffffff;
   border-top: 2px solid #ffffff;
   border-right: 2px solid #808080;
@@ -626,14 +648,16 @@ body {
   border-style: solid;
 }
 
-[data-theme="retro"] .custom-theme-toggle:active {
+[data-theme="retro"] .custom-theme-toggle:active,
+[data-theme="retro"] .custom-theme-rotate:active {
   border-left: 2px solid #808080;
   border-top: 2px solid #808080;
   border-right: 2px solid #ffffff;
   border-bottom: 2px solid #ffffff;
 }
 
-[data-theme="retro"] .custom-theme-toggle.active {
+[data-theme="retro"] .custom-theme-toggle.active,
+[data-theme="retro"] .custom-theme-rotate.active {
   border-left: 2px solid #808080;
   border-top: 2px solid #808080;
   border-right: 2px solid #ffffff;
@@ -642,7 +666,8 @@ body {
   color: #000000;
 }
 
-[data-theme="neon"] .custom-theme-toggle {
+[data-theme="neon"] .custom-theme-toggle,
+[data-theme="neon"] .custom-theme-rotate {
   border: 1px solid var(--theme-toggle-text);
   box-shadow: 0 0 6px rgba(0, 240, 255, 0.2);
 }
@@ -654,7 +679,13 @@ body {
   background: rgba(255, 0, 127, 0.1);
 }
 
-[data-theme="gaming"] .custom-theme-toggle {
+[data-theme="neon"] .custom-theme-rotate:hover {
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  color: #00f0ff;
+}
+
+[data-theme="gaming"] .custom-theme-toggle,
+[data-theme="gaming"] .custom-theme-rotate {
   border: 1px solid transparent;
 }
 
@@ -665,7 +696,14 @@ body {
   background: rgba(0, 255, 102, 0.05);
 }
 
-[data-theme="gumball"] .custom-theme-toggle {
+[data-theme="gaming"] .custom-theme-rotate:hover {
+  border-color: #00ff66;
+  color: #00ff66;
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+}
+
+[data-theme="gumball"] .custom-theme-toggle,
+[data-theme="gumball"] .custom-theme-rotate {
   background: #fdedc5;
   color: #000000;
   border: 2px solid #000000;
@@ -677,7 +715,12 @@ body {
   color: #f1703e;
 }
 
-[data-theme="custom"] .custom-theme-toggle {
+[data-theme="gumball"] .custom-theme-rotate:active {
+  transform: translate(2px, 2px);
+}
+
+[data-theme="custom"] .custom-theme-toggle,
+[data-theme="custom"] .custom-theme-rotate {
   border: 2px solid var(--calc-border, #000000);
   box-shadow: var(--btn-digit-shadow, 3px 3px 0px #000000);
 }
@@ -685,6 +728,11 @@ body {
 [data-theme="custom"] .custom-theme-toggle.active {
   background: rgba(255, 255, 255, 0.15);
   color: var(--display-text-current);
+}
+
+[data-theme="custom"] .custom-theme-rotate:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000000;
 }
 
 /* Loading Overlay for Theme Analysis */
